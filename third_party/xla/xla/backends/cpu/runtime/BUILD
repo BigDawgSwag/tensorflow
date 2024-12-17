@@ -685,6 +685,7 @@ cc_library(
     deps = [
         ":thunk",
         "//xla:shape_util",
+        "//xla:status_macros",
         "//xla:types",
         "//xla:util",
         "//xla:xla_data_proto_cc",
