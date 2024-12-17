@@ -1,5 +1,10 @@
 # PJRT C API changelog
 
+## 0.60
+
+*   Added `context` field of type `PJRT_ExecuteContext *` in
+    `PJRT_ExecuteOptions`.
+
 ## 0.59
 * Added ``PJRT_MemoryDescriptions_Extension``.
 
