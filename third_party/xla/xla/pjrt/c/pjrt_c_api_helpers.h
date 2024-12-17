@@ -210,6 +210,9 @@ int GetId(const PJRT_Api* api, PJRT_DeviceDescription* device_desc);
 using PJRT_KeyValueGetCFunc =
     std::function<PJRT_Error*(PJRT_KeyValueGetCallback_Args* args)>;
 
+using PJRT_KeyValueTryGetCFunc =
+    std::function<PJRT_Error*(PJRT_KeyValueTryGetCallback_Args* args)>;
+
 using PJRT_KeyValuePutCFunc =
     std::function<PJRT_Error*(PJRT_KeyValuePutCallback_Args* args)>;
 
@@ -220,12 +223,15 @@ struct PJRT_KeyValueCallbackData {
 
   std::shared_ptr<xla::KeyValueStoreInterface> kv_store;
 
-  // kv_get_c_func and kv_put_c_func are holding pointers to kv_store.
+  // kv_get_c_func, kv_try_get_c_func and kv_put_c_func are holding pointers to
+  // kv_store.
   pjrt::PJRT_KeyValueGetCFunc kv_get_c_func;
+  pjrt::PJRT_KeyValueTryGetCFunc kv_try_get_c_func;
   pjrt::PJRT_KeyValuePutCFunc kv_put_c_func;
-  // c_kv_get and c_kv_put are holding pointers to kv_get_c_func and
-  // kv_put_c_func.
+  // c_kv_get, c_kv_try_get and c_kv_put are holding pointers to kv_get_c_func
+  // and kv_put_c_func.
   PJRT_KeyValueGetCallback c_kv_get;
+  PJRT_KeyValueTryGetCallback c_kv_try_get;
   PJRT_KeyValuePutCallback c_kv_put;
 };
 

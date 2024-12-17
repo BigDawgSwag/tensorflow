@@ -1,5 +1,10 @@
 # PJRT C API changelog
 
+## 0.59 (Dec 16, 2024)
+* Added `PJRT_KeyValueTryGet` to the KV store interface,
+  which is non-blocking and immediately returns an error if the
+  key is not found.
+
 ## 0.57
 * Rearranged fields in the PJRT_Api
 * Update outdated struct sizes from previous changes to
