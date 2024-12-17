@@ -20,4 +20,5 @@ DEFAULT_BAZEL_TARGETS="//tensorflow/... \
 -//tensorflow/core/tpu/... \
 -//tensorflow/go/... \
 -//tensorflow/java/... \
--//tensorflow/tools/toolchains/..."
+-//tensorflow/tools/toolchains/... \
+-//tensorflow/compiler/mlir/tosa/..."
