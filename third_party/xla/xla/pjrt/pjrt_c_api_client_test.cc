@@ -211,6 +211,25 @@ TEST(PjRtClientTest, CompileUsesStableHloVersion) {
   const_cast<PJRT_Api*>(c_api)->PJRT_Client_Compile = PJRT_Client_Compile_Orig;
 }
 
+TEST(PjRtClientTest, CanQueryMemoryDescriptions) {
+  SetUpCpuPjRtApi();
+  TF_ASSERT_OK_AND_ASSIGN(std::unique_ptr<PjRtClient> client,
+                          GetCApiClient("cpu"));
+  TF_ASSERT_OK_AND_ASSIGN(const PjRtTopologyDescription* topology,
+                          client->GetTopologyDescription());
+  std::vector<std::unique_ptr<const PjRtDeviceDescription>> devices =
+      topology->DeviceDescriptions();
+  for (std::unique_ptr<const PjRtDeviceDescription>& device : devices) {
+    for (const PjRtMemorySpaceDescription* memory : device->memory_spaces()) {
+      // TODO: CPU doesn't currently have memory descriptions, so the
+      //       code below doesn't get triggered yet.
+      EXPECT_NE(memory, nullptr);
+      EXPECT_GT(memory->kind().size(), 0);
+      EXPECT_GE(memory->kind_id(), 0);
+    }
+  }
+}
+
 TEST(PjRtCApiClientTest, WrapClientAroundCApi) {
   const PJRT_Api* c_api = ::pjrt::cpu_plugin::GetCpuPjrtApi();
   TF_ASSERT_OK_AND_ASSIGN(std::unique_ptr<PjRtClient> client,
